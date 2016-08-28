@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="MyProject">
+<head>
+	<title>My Project</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+</head>
+<body ng-controller="ProjectCtrl">
+		<md-toolbar class="md-whiteframe-5dp" md-scroll-shrink>
+			<div class="md-toolbar-tools">My Project</div>
+		</md-toolbar>
+		<div flex="70" flex-offset="15">
+			<md-content layout-padding>
+				<form name="projectForm" id="projectForm" novalidate>
+
+					<div layout="row">
+						<md-input-container flex="50">
+							<label>Project Name</label>
+							<input required name="name" ng-model="project.name">
+							<div ng-messages="projectForm.name.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+						<md-input-container flex="50">
+							<label>Description</label>
+							<input md-maxlength="30" md-no-asterisk name="description" ng-model="project.description">
+							<div ng-messages="projectForm.description.$error">
+								<div ng-message="md-maxlength">The description must be less than 30 characters long.</div>
+							</div>
+						</md-input-container>
+					</div>
+
+					<div layout="row">
+						<md-input-container flex="50">
+							<label>Client Name</label>
+							<input required name="clientName" ng-model="project.clientName">
+							<div ng-messages="projectForm.clientName.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+						<md-input-container flex="50">
+							<label>Project Type</label>
+							<md-select name="type" ng-model="project.type" required>
+								<md-option ng-value="opt" ng-repeat="opt in type">{{opt}}</md-option>
+								<!-- <md-option value="web">Website</md-option> -->
+							</md-select>
+						</md-input-container>
+					</div>
+					<md-input-container class="md-block">
+						<label>Client Email</label>
+						<input required type="email" name="clientEmail" ng-model="project.clientEmail"
+						minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+						<div ng-messages="projectForm.clientEmail.$error" role="alert">
+							<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+								Your email must be between 10 and 100 characters long and look like an e-mail address.
+							</div>
+						</div>
+					</md-input-container>
+					<div align="center">
+						<md-button ng-show="!id_editData" ng-click="addProject()" class="md-raised md-primary" ng-disabled="!project.name||!project.clientName||!project.type||!project.clientEmail">Save</md-button>
+						<md-button ng-show="id_editData" ng-click="updateProject(id_editData)" class="md-raised md-primary" ng-disabled="!project.name||!project.clientName||!project.type||!project.clientEmail">Save *</md-button>
+					</div>
+				</form>
+			</md-content>
+			<md-content>
+				<md-list flex>
+					<md-subheader class="md-no-sticky">{{data.data.length}} Items</md-subheader>
+					<md-list-item class="md-3-line" ng-repeat="item in data.data" ng-click="null">
+						<div class="md-list-item-text" layout="column">
+							<h3>{{ item.name }} <font size="1">{{item.description}}</font> by {{ item.clientName}}</h3>
+							<h4>{{ item.clientEmail }}</h4>
+							<p>{{ item.type }}</p>
+						</div>
+						<md-button class="md-secondary" ng-click="edit(item)">Edit</md-button>
+						<md-button class="md-secondary" ng-click="removeProject(item._id)">Delete</md-button>
+					</md-list-item>
+				</md-list>
+			</md-content>
+		</div>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+		<!-- Angular Material Library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+		
+		<script src="angular/app.js"></script>
+	</body>
+	</html>

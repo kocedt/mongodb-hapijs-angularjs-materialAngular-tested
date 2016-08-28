@@ -1,0 +1,19 @@
+{
+  "name": "hapiJS",
+  "version": "1.0.0",
+  "description": "My Project",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "Unknown",
+  "license": "ISC",
+  "dependencies": {
+    "good-console": "^*",
+    "inert": "^*",
+    "joi": "^*",
+    "mongoose": "^*",
+    "vision": "^*"
+  }
+}
